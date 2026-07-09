@@ -1,6 +1,6 @@
-#HomeLab
+# HomeLab
 
-On raspberry pi5. 
+On a debian VM self-host. 
 Deploying Kubernetes, using Terraform and setting up a clean Gitops operation. 
 Enhancing my skill for IaC
 
