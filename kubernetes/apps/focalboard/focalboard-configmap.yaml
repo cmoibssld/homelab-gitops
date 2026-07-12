@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: focalboard-config
+  namespace: focalb-demo
+data:
+  config-json.tpl: |
+    {
+      "serverRoot": "http://board.local",
+      "port": "8000",
+      "dbtype": "postgres",
+      "dbconfig": "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable&connect_timeout=10",
+      "useSSL": false,
+      "webpath": "./pack",
+      "filespath": "./data/files",
+      "telemetry": true,
+      "session_expire_time": 2592000,
+      "session_refresh_time": 18000,
+      "localOnly": false,
+      "enableLocalMode": false,
+      "localModeSocketLocation": "/var/tmp/focalboard_local.socket"
+    }
+  # FOCALBOARD_SERVERRO: "http://board.local"
+  # FOCALBOARD_PORT: 8000
+  # FOCALBOARD_DBTYPE: "postgresql"

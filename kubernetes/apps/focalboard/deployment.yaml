@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: focalboard-deployment
+  namespace: focalb-demo
+  labels:
+    app: focalboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: focalboard
+  template:
+    metadata:
+      labels:
+        app: focalboard
+    spec:
+      enableServiceLinks: false
+      initContainers:
+        - name: render-config
+          image: alpine:3.20
+          command:
+            - sh 
+            - -c 
+            - |
+              apk add --no-cache gettext
+              envsubst < /tpl/config-json.tpl > /config/config.json
+              cat /config/config.json
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
+          volumeMounts:
+            - name: config-template
+              mountPath: /tpl
+            - name: generated-config
+              mountPath: /config
+      containers:
+        - name: focalboard
+          image: nicoulaj/focalboard:latest # official image for amd64 this one for multi=arch 
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: generated-config
+              mountPath: /config
+          command:
+            - sh
+            - -c
+            - |
+              ls -l /config
+              cat /config/config.json
+              cp /config/config.json /opt/focalboard/config.json
+              cat /opt/focalboard/config.json
+              /opt/focalboard/bin/focalboard-server
+      volumes:
+        - name: config-template
+          configMap:
+            name: focalboard-config
+        - name: generated-config
+          emptyDir: {}
