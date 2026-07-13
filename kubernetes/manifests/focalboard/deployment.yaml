@@ -38,7 +38,7 @@ spec:
               mountPath: /config
       containers:
         - name: focalboard
-          image: heywoodlh/focalboard:a84bbb6 # official image for amd64 this one for multi=arch 
+          image: matijag/focalboard:8.2.20 # official image for amd64 this one for multi=arch 
           ports:
             - containerPort: 8000
           volumeMounts:
