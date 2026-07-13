@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: focalboard-deployment
+  namespace: "{{ .Release.Namespace }}"
+  labels:
+    app: focalboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: focalboard
+  template:
+    metadata:
+      labels:
+        app: focalboard
+    spec:
+      enableServiceLinks: false
+      initContainers:
+        - name: render-config
+          image: alpine:3.20
+          command:
+            - sh 
+            - -c 
+            - |
+              apk add --no-cache gettext
+              envsubst < /tpl/config-json.tpl > /config/config.json
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
+          volumeMounts:
+            - name: config-template
+              mountPath: /tpl
+            - name: generated-config
+              mountPath: /config
+      containers:
+        - name: focalboard
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+          ports:
+            - containerPort: {{ .Values.server.port }}
+          volumeMounts:
+            - name: generated-config
+              mountPath: /config
+          command:
+              - sh
+              - -c
+              - |
+                cp /config/config.json /opt/focalboard/config.json
+                /opt/focalboard/bin/focalboard-server
+      volumes:
+        - name: config-template
+          configMap:
+            name: focalboard-config
+        - name: generated-config
+          emptyDir: {}

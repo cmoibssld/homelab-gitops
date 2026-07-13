@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: focalboard-config
+  namespace: "{{ .Release.Namespace }}"
+data:
+  config-json.tpl: |
+    {
+      "serverRoot": "{{ .Values.server.root }}",
+      "port": "{{ .Values.server.port }}",
+      "dbtype": "postgres",
+      "dbconfig": "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable&connect_timeout=10",
+      "useSSL": {{ .Values.server.useSSL }},
+      "webpath": "./pack",
+      "filespath": "./data/files",
+      "telemetry": true,
+      "session_expire_time": 2592000,
+      "session_refresh_time": 18000,
+      "localOnly": false,
+      "enableLocalMode": false,
+      "localModeSocketLocation": "/var/tmp/focalboard_local.socket"
+    }
+

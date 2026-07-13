@@ -1,0 +1,15 @@
+image:
+  repository: heywoodlh/focalboard
+  tag: a84bbb6
+
+server:
+  hostname: board.local
+  root: http://board.local
+  port: 8000
+  port_target: 8000
+  useSSL: false
+
+postgres:
+  name: appdb
+  user: appuser
+  password: CHANGE_ME
