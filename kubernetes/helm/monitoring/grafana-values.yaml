@@ -1,0 +1,10 @@
+adminUser: admin
+adminPassword: CHANGE_ME # to ease testing of grafana, might be better to use self-generated password
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hosts:
+    - grafana.local
