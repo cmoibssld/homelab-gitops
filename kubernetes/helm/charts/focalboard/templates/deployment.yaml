@@ -25,9 +25,12 @@ spec:
             - |
               apk add --no-cache gettext
               envsubst < /tpl/config-json.tpl > /config/config.json
+          env:
+            - name: "POSTGRES_USER"
+              value: "{{ .Values.postgres.auth.username }}"
+            - name: "POSTGRES_DB"
+              value: "{{ .Values.postgres.auth.database }}"
           envFrom:
-            - configMapRef:
-                name: postgres-config
             - secretRef:
                 name: postgres-secret
           volumeMounts:

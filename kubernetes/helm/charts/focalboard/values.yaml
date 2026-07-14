@@ -10,6 +10,10 @@ server:
   useSSL: false
 
 postgres:
-  name: appdb
-  user: appuser
-  password: CHANGE_ME
+  auth:
+    username: CHANGE_ME
+    passwword: CHANGE_ME_DONT_COMMIT
+    database: CHANGE_ME
+  global:
+    postgresql:
+      fullnameOverride: postgres # overrides chart name one of the solution to get correct connection and DNS replacement inside focalboard config
