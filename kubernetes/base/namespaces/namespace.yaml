@@ -1,3 +1,4 @@
+#Use for first step of project when only using k3s commands
 apiVersion: v1
 kind: Namespace
 metadata:
