@@ -6,7 +6,7 @@ kubectl create namespace monitoring
 ```
 
 
-Secoundly, tell helm to fetch the grafana and prometheus charts and make sure they are up-to-date.
+Secondly, tell helm to fetch the grafana and prometheus charts and make sure they are up-to-date.
 
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -17,14 +17,17 @@ helm repo update
 Lastly, install both utilities from the files inside the monitoring folder 
 
 ```bash
-helm install monitoring prometheus-community/kube-prometheus-stack \
-  -f monitoring/prometheus-values.yaml \
+helm install monitoring prometheus-community/prometheus \
   --namespace monitoring
 
 helm install grafana grafana/grafana \
   -f monitoring/grafana-values.yaml \
   --namespace monitoring
 ```
+
+Now Grafana can start to display metric scrapped by Prometheus. 
+Import dashboard number 1860 and 3662 to start visualizing some data. Right now it can monitor usage of the server and of kubernetes cluster. Later might introduce a monitoring of Focalboard through the /metrics.
+
 
 If changes have been made to the values.yaml file, update of the charts can be done with this:
 ```bash
