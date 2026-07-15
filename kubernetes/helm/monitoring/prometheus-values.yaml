@@ -2,10 +2,20 @@ server:
   retention: "3d"
 
   persistentVolume:
-    size: 2Gi
-    # enable: false # Not enough storage on my VM so for now, bot giving persistent storage
+    enable: true
+
+prometheusSpec:
+  storageSpec:
+    volumeClaimTemplate:
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        ressources:
+          requests:
+            storage: 2Gi
+          limits:
+            storage: 10Gi
 
 alertmanager:
   persistentVolume:
     size: 1Gi
-    # enable: false
+    enable: true

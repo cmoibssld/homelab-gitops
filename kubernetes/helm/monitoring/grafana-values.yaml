@@ -17,3 +17,8 @@ datasources:
         type: prometheus
         url: http://prometheus-server.monitoring.svc.cluster.local
         access: proxy
+
+persistence:
+  enabled: true
+  storageClassName: local-path
+  size: 2Gi
