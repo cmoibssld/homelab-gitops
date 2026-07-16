@@ -15,6 +15,13 @@ prometheusSpec:
           limits:
             storage: 10Gi
 
+serverFiles:
+  prometheus.yml:
+    scrape_configs:
+      - job_name: focalboard
+        static_configs:
+          - targets:
+              - focalboard-service.focalboard.svc.cluster.local:9092
 alertmanager:
   persistentVolume:
     size: 1Gi

@@ -9,10 +9,12 @@ server:
   port_target: 8000
   useSSL: false
 
+prometheusPort: 9092  
+
 postgres:
   auth:
     username: CHANGE_ME
-    passwword: CHANGE_ME_DONT_COMMIT
+    password: CHANGE_ME_DONT_COMMIT
     database: CHANGE_ME
   global:
     postgresql:

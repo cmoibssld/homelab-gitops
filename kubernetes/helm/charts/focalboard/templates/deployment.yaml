@@ -42,7 +42,10 @@ spec:
         - name: focalboard
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
           ports:
-            - containerPort: {{ .Values.server.port }}
+            - name: http
+              containerPort: {{ .Values.server.port }}
+            - name: metrics
+              containerPort: {{ .Values.prometheusPort }}
           volumeMounts:
             - name: generated-config
               mountPath: /config

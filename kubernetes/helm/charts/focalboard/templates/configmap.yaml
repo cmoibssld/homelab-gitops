@@ -12,6 +12,7 @@ data:
       "dbconfig": "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable&connect_timeout=10",
       "useSSL": {{ .Values.server.useSSL }},
       "webpath": "./pack",
+      "prometheusaddress": ":{{ .Values.prometheusPort }}",
       "filespath": "./data/files",
       "telemetry": true,
       "session_expire_time": 2592000,
