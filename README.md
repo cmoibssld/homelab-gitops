@@ -14,7 +14,16 @@ Adding monitoring of the cluster with Grafana and Prometheus but this time using
 First of all, automatation of the Helm release and install with only terraform apply the whole app + monitoring. Then manages of secrets with Terraform along with storage and etc.
 
 ### Fourth step: Cloud (current work)
-1. Let Terraform install a cloud VM (with Azure) and let Ansible configure it so Terraform can then install the app.
+1. Let Terraform install a cloud VM (with Azure) and let Ansible configure it so Terraform can then install the app.  
+To enter VM with ssh:
+    1. Save ssh_private_key into file:
+    ```bash
+    terraform output --raw private_ssh_key > key.ssh
+    ```
+    2. Enter VM by provisionning public IP and private key
+    ```bash
+    ssh -i key.ssh azureuser@(terraform output --raw public_ip)
+    ```
 2. Test on Azure kubernetes machines (AKS).
 
 ### To come next:
