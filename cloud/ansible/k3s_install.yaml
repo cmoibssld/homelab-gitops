@@ -12,7 +12,7 @@
     - name: Install K3s
       shell: |
         curl -sfL https://get.k3s.io | \
-        INSTALL_K3S_EXEC="server --tls-san {{ vm_public_ip }}" sh -
+        INSTALL_K3S_EXEC="server --tls-san {{ inventory_hostname }}" sh -
       args:
         creates: /usr/local/bin/k3s
 
@@ -51,7 +51,7 @@
         line: 'export PATH=$PATH:/usr/local/bin'
       when: helm_install_result.rc == 0
 
-- name: Fetch kubeconfig
+- name: Fetch kubeconfig #Use for install App with Terraform inside ../kubernetes repo
   hosts: debianAzure
   become: yes
   tasks:
@@ -60,3 +60,21 @@
         src: /etc/rancher/k3s/k3s.yaml
         dest: ../kubernetes/cloud-kubeconfig
         flat: yes
+
+- name: Install Argo-Server
+  hosts: debianAzure
+  become: yes
+  environment:
+    KUBECONFIG: /etc/rancher/k3s/k3s.yaml
+  tasks:  
+    - name: Add Argo Helm repo
+      shell: |
+        helm repo add argo https://argoproj.github.io/argo-helm
+        helm repo update
+
+    - name: Install Argo CD
+      shell: |
+        helm upgrade --install argocd argo/argo-cd \
+        --namespace argocd \
+         --create-namespace
+
