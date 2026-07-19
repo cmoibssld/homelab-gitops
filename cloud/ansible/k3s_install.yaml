@@ -11,7 +11,8 @@
 
     - name: Install K3s
       shell: |
-        curl -sfL https://get.k3s.io | sh -
+        curl -sfL https://get.k3s.io | \
+        INSTALL_K3S_EXEC="server --tls-san {{ vm_public_ip }}" sh -
       args:
         creates: /usr/local/bin/k3s
 
@@ -50,11 +51,12 @@
         line: 'export PATH=$PATH:/usr/local/bin'
       when: helm_install_result.rc == 0
 
-- name: Set-up project
+- name: Fetch kubeconfig
   hosts: debianAzure
   become: yes
   tasks:
-    - name: Copy helm project
-      copy:
-        src: ../../kubernetes/helm/
-        dest: /home/azureuser/helm/
+    - name: Get k3s cloud VM condig
+      fetch:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: ../kubernetes/cloud-kubeconfig
+        flat: yes
