@@ -2,27 +2,28 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 
 metadata:
-  name: focalboard
+  name: grafana
   namespace: argocd
 
 spec:
   project: default
 
-  source: 
+  source:
     repoURL: https://github.com/cmoibssld/cloud-work.git
     targetRevision: gitops
-    path: workloads/focalboard
+    path: workloads/monitoring
     helm:
       valueFiles:
-        - values.yaml
+        - grafana-values.yaml
 
     destination:
       server: https://kubernetes.default.svc
-      namespace: focalboard
+      namespace: monitoring
 
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+
