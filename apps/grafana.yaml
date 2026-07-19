@@ -16,14 +16,14 @@ spec:
       valueFiles:
         - grafana-values.yaml
 
-    destination:
-      server: https://kubernetes.default.svc
-      namespace: monitoring
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
 
-    syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
 
