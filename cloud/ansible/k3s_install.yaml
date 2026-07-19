@@ -78,3 +78,10 @@
         --namespace argocd \
          --create-namespace
 
+    - name: Bootstrap Argo CD
+      environment:
+        KUBECONFIG: /etc/rancher/k3s/k3s.yaml
+      command: >
+        kubectl apply -f
+        https://raw.githubusercontent.com/cmoibssld/cloud-work/gitops/bootstrap/argocd-origin.yaml
+
