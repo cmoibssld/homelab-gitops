@@ -11,7 +11,7 @@ spec:
   source: 
     repoURL: https://github.com/cmoibssld/cloud-work.git
     argetRevision: gitops
-    path: workloads/focalboard
+    path: gitops/workloads/focalboard
     helm:
       valueFiles:
         - values.yaml
