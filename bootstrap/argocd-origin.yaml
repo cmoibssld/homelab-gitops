@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/cmoibssld/cloud-work.git
     targetRevision: gitops
-    path: gitops/apps
+    path: apps
 
   destination:
     server: https://kubernetes.default.svc
