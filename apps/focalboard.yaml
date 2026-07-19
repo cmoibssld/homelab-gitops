@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: focalboard
+  namespace: argocd
+
+spec:
+  project: default
+
+  source: 
+    repoURL: https://github.com/cmoibssld/cloud-work.git
+    argetRevision: gitops
+    path: workloads/focalboard
+    helm:
+      valueFiles:
+        - values.yaml
+
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: focalboard
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

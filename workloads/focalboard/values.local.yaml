@@ -1,0 +1,5 @@
+postgres:
+  auth:
+    username: postuser
+    password: inyal2
+    database: focaldb
