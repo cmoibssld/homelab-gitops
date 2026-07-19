@@ -1,0 +1,22 @@
+# ArgoCD config file. Ansible applies it with kubectl
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: homelab
+  namespace: argocd
+
+spec:
+  source:
+    repoURL: https://github.com/cmoibssld/cloud-work.git
+    targetRevision: gitops
+    path: gitops/apps
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
