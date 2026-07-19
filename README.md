@@ -13,7 +13,7 @@ Adding monitoring of the cluster with Grafana and Prometheus but this time using
 ### Third step: Terraform
 First of all, automatation of the Helm release and install with only terraform apply the whole app + monitoring. Then manages of secrets with Terraform along with storage and etc.
 
-### Fourth step: Cloud (current work)
+### Fourth step: Cloud
 1. Let Terraform install a cloud VM (with Azure) and let Ansible configure it so Terraform can then install the app.  
 To enter VM with ssh:
     1. Save ssh_private_key into file:
@@ -26,6 +26,8 @@ To enter VM with ssh:
     ```
 2. Test on Azure kubernetes machines (AKS).
 
-### To come next:
-Gitops -> on CD for now 
-CI -> pipeline with githubactions, set up test
+### Fifth step: Continuous Deployement (CD) (current work)
+Use of ArgoCD to monitor branch of this repo called 'gitops'. ArgoCD is installed as a kubernetes application inside the Cloud VM and has 3 applications (focalboard, grafana, prometheus) to monitor. When changes are pushed into the gitops branch, Argo pulls the recent update and modify the k3s cluster to reach the desired state.
+
+#### To come next
+CI pipeline with GithubActions or Jenkins
