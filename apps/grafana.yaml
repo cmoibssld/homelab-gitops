@@ -8,14 +8,16 @@ metadata:
 spec:
   project: default
 
-  source:
-    chart: grafana
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 10.5.15
-  source:
-    helm:
-      valueFiles:
-        - workloads/monitoring/grafana-values.yaml
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: grafana
+      targetRevision: 10.5.15
+      helm:
+        valueFiles:
+          - $values/workloads/monitoring/grafana-values.yaml
+    - repoURL: https://github,com/cmoibssld/cloud-work.git
+      targetRevision: gitops
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
