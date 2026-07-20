@@ -8,13 +8,16 @@ metadata:
 spec:
   project: default
 
-  source:
-    repoURL: https://github.com/cmoibssld/cloud-work.git
-    targetRevision: gitops
-    path: workloads/monitoring
-    helm:
-      valueFiles:
-        - prometheus-values.yaml
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: prometheus-community
+      targetRevision: 15.7.1
+      helm:
+        valueFiles:
+          - $values/workloads/monitoring/prometheus-values.yaml
+    - repoURL: https://github.com/cmoibssld/cloud-work.git
+      targetRevision: gitops
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
