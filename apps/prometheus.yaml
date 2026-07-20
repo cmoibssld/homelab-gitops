@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: https://prometheus-community.github.io/helm-charts
       chart: prometheus-community
-      targetRevision: 15.7.1
+      targetRevision: HEAD
       helm:
         valueFiles:
           - $values/workloads/monitoring/prometheus-values.yaml
