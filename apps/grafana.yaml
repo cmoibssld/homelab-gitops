@@ -9,9 +9,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/cmoibssld/cloud-work.git
-    targetRevision: gitops
-    path: workloads/monitoring
+    chart: grafana
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 10.5.15
     helm:
       valueFiles:
         - grafana-values.yaml
