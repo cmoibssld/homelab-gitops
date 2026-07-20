@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: focalboard-service
   namespace: "{{ .Release.Namespace }}"
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9092"
 spec:
   selector:
     app: focalboard
