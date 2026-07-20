@@ -17,7 +17,7 @@ prometheusSpec:
 
 serverFiles:
   prometheus.yml:
-    scrape_configs: |
+    extraScrapeConfigs: |
       - job_name: focalboard
         static_configs:
           - targets:
