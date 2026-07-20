@@ -9,7 +9,7 @@ prometheusSpec:
     volumeClaimTemplate:
       spec:
         accessModes: ["ReadWriteOnce"]
-        ressources:
+        resources:
           requests:
             storage: 2Gi
           limits:
@@ -17,7 +17,7 @@ prometheusSpec:
 
 serverFiles:
   prometheus.yml:
-    scrape_configs:
+    scrape_configs: |
       - job_name: focalboard
         static_configs:
           - targets:
