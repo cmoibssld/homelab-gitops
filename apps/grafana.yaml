@@ -15,7 +15,7 @@ spec:
       helm:
         valueFiles:
           - $values/workloads/monitoring/grafana-values.yaml
-    - repoURL: https://github,com/cmoibssld/cloud-work.git
+    - repoURL: https://github.com/cmoibssld/cloud-work.git
       targetRevision: gitops
       ref: values
   destination:
